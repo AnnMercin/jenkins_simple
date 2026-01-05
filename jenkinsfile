@@ -1,0 +1,34 @@
+pipeline {
+  agent any
+
+  stages {
+
+    stage('Checkout') {
+      steps {
+        git branch: 'main', url: 'https://github.com/annmercin/jenkins_project.git'
+      }
+    }
+
+    stage('Build') {
+      steps {
+        sh 'echo "Running build step..."'
+      }
+    }
+
+    stage('Docker Build') {
+      steps {
+        sh 'docker build -t hello-jenkins-basic .'
+      }
+    }
+
+    stage('Docker Run') {
+      steps {
+        sh '''
+          docker rm -f hello-test || true
+          docker run --name hello-test hello-jenkins-basic
+        '''
+      }
+    }
+  }
+}
+
