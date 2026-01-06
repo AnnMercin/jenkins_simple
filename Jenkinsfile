@@ -40,7 +40,7 @@ pipeline {
 
                   git fetch origin
                   git checkout main
-                  git merge development --no-ff
+                  git merge origin/development --no-ff
                   git push origin main
                 '''
             }
